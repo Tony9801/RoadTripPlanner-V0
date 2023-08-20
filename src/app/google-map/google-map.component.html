@@ -1,0 +1,42 @@
+<div class="app-container">
+  <header>
+    <h1>Road Trip Planner</h1>
+  </header>
+
+  <main>
+    <div class="input-container">
+      <input type="text" placeholder="Enter Source" [(ngModel)]="source" />
+      <input type="text" placeholder="Enter Destination" [(ngModel)]="destination" />
+      <button class="btn" (click)="displayRoute()">Find Route</button>
+    </div>
+
+    <div class="map-content">
+      <div class="map-container" #mapContainer></div>
+    </div>
+
+    <!-- Display this section only after finding route -->
+    <div *ngIf="routeFound">
+      <button class="btn sidebar-toggle" (click)="toggleSidebar()">Select Waypoints</button>
+
+      <aside class="sidebar" [class.open]="isSidebarOpen">
+        <h3>Select Waypoints</h3>
+        <ul>
+          <li *ngFor="let waypoint of waypoints">
+            <input type="checkbox" (change)="toggleWaypointSelection(waypoint)" /> 
+            ${{ waypoint.name }}
+          </li>
+        </ul>
+        <button class="btn" (click)="toggleSidebar()">Close</button>
+      </aside>
+    </div>
+
+    <section class="attractions">
+      <h2>Nearby Attractions</h2>
+      <ul>
+        <li *ngFor="let attraction of attractions">
+          {{ attraction.name }}
+        </li>
+      </ul>
+    </section>
+  </main>
+</div>
